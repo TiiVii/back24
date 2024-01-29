@@ -27,17 +27,43 @@ const getUsers = (req, res) => {
 
 const getUserById = (req, res) => {
   // TODO: implement this
-  res.send('not working yet');
+  const userId = parseInt(req.params.id);
+  const userFound = users.find(user => user.id === userId);
+
+  if (!userFound) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  res.json(userFound);
 };
 
 const postUser = (req, res) => {
   // TODO: implement this
-  res.send('not working yet');
+  const newUser = req.body;
+
+  if (!newUser.username || !newUser.password || !newUser.email) {
+    return res.status(400).json({ error: 'Incomplete user information' });
+  }
+
+  newUser.id = users.length + 1;
+  users.push(newUser);
+
+  res.status(201).json({ message: 'User created successfully', user: newUser });
 };
 
 const putUser = (req, res) => {
   // TODO: implement this
-  res.send('not working yet');
+  const userId = parseInt(req.params.id);
+  const index = users.findIndex(user => user.id === userId);
+
+  if (index === -1) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  const updatedUser = { ...users[index], ...req.body };
+  users[index] = updatedUser;
+
+  res.json({ message: 'User updated successfully', user: updatedUser });
 };
 
 // Dummy login, returns user object if username & password match
