@@ -48,8 +48,8 @@ const items = [
     // or successful response without any content
     // res.sendStatus(204);
   };
-  
-  const putItem = (req, res) => {
+
+const putItem = (req, res) => {
     // TODO: implement modify item
     const index = items.findIndex(item => item.id == req.params.id);
     // not found
@@ -60,6 +60,13 @@ const items = [
     if (!req.body.name) {
       return res.status(400).json({error: "item name missing"});
     }
+
+    // Modify additional properties if needed
+    if (req.body.description) {
+      items[index].description = req.body.description;
+  }
+
+  // Update item name
     items[index].name = req.body.name;
     res.json({updated_item: items[index]});
   };
