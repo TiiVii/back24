@@ -25,4 +25,4 @@ const isUserOwner = (req, res, next) => {
     next();
 };
 
-module.exports = { isEntryOwner, isUserOwner };
+export { isEntryOwner, isUserOwner };

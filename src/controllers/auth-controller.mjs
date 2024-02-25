@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import 'dotenv/config';
 import {selectUserByUsername} from '../models/user-model.mjs';
 
+// INSECURE LOGIN uses harcoded passwords only
 // returns user object if username & password match
 const postLogin = async (req, res) => {
   const {username, password} = req.body;
@@ -11,6 +12,7 @@ const postLogin = async (req, res) => {
   if (user.error) {
     return res.status(user.error).json(user);
   }
+
   // compare password and hash, if match, login successful
   const match = await bcrypt.compare(password, user.password);
   if (match) {

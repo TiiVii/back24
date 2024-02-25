@@ -5,7 +5,7 @@ import {
   listAllUsers,
   selectUserById,
   updateUserById,
-} from '../models/user-model.mjs';
+} from '../models/users-models.mjs';
 
 const getUsers = async (req, res) => {
   const result = await listAllUsers();
@@ -76,4 +76,14 @@ const deleteUser = async (req, res) => {
   return res.json(result);
 };
 
-export {getUsers, getUserById, postUser, putUser, deleteUser};
+// Controller function for post login
+const postLogin = async (req, res) => {
+  const { username, password } = req.body;
+
+  // Assuming validation passes, generate JWT token
+  const token = jwt.sign({ username }, 'secretKey', { expiresIn: '1h' });
+
+  res.json({ token });
+};
+
+export { getUsers, getUserById, postUser, putUser, deleteUser, postLogin };
