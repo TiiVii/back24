@@ -1,9 +1,10 @@
-const Entry = require('../models/Entry'); // Import your Entry model
+import {findEntryById} from '../models/entry-model.mjs'; 
+// Import your Entry model
 
 // Middleware to check if the user is the owner of the entry
 const isEntryOwner = async (req, res, next) => {
     try {
-        const entry = await Entry.findById(req.params.id);
+        const entry = await findEntryById.findById(req.params.id);
         if (!entry) {
             return res.status(404).json({ message: 'Entry not found' });
         }
