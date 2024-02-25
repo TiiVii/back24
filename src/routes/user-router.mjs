@@ -1,21 +1,33 @@
 import express from 'express';
 import {
-    getUsers,
-    getUserById,
-    postUser,
-    putUser,
-    postLogin,
-    deleteUser
+  getUserById,
+  getUsers,
+  postUser,
+  putUser,
+  deleteUser,
 } from '../controllers/user-controller.mjs';
+import {authenticateToken} from '../middlewares/authentication.mjs';
 
+// eslint-disable-next-line new-cap
 const userRouter = express.Router();
 
-// Define routes and connect them to the appropriate handlers
-userRouter.get('/', getUsers);
-userRouter.get('/:id', getUserById);
-userRouter.post('/', postUser);
-userRouter.put('/:id', putUser);
-userRouter.delete('/:id', deleteUser);
-userRouter.post('/login', postLogin);
+// /user endpoint
+userRouter
+  // eslint-disable-next-line indent
+  .route('/')
+  // list users
+  .get(authenticateToken, getUsers)
+  // update user
+  .put(authenticateToken, putUser)
+  // user registration
+  .post(postUser);
+
+// /user/:id endpoint
+userRouter
+  .route('/:id')
+  // get info of a user
+  .get(authenticateToken, getUserById)
+  // delete user based on id
+  .delete(authenticateToken, deleteUser);
 
 export default userRouter;
