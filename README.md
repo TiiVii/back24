@@ -1,58 +1,11 @@
-# Hyte web dev example back-end server
+## Authorization Rules
 
-**Node.js + Express** application.
+### Entries
+- **PUT /api/entries/:id**: Only the owner of the entry can update it.
+- **DELETE /api/entries/:id**: Only the owner of the entry can delete it.
 
-(Check weekly branches too.)
+### Users
+- **PUT /api/users/**: Users can only update their own user information.
+- **GET /api/:id**: Users can only delete their own user
 
-## Usage
 
-1. Clone/download code
-2. Run `npm i` inside project folder
-3. Install & start MySQL/MariaDB server
-4. Import database script(s) in `db/` folder
-5. Create `.env` file based on `.env.sample`
-6. Start the dev server: `npm run dev` / `npm start`
-
-## Resources and endpoints
-
-### `/items` (works with hard-coded mock data only, no need for db)
-
-```http
-GET http://127.0.0.1:3000/items
-GET http://127.0.0.1:3000/items/:id
-DELETE http://127.0.0.1:3000/items/:id
-
-POST http://127.0.0.1:3000/items
-content-type: application/json
-body: {"name": "New Item"}
-```
-
-### `/users`
-
-Example queries:
-
-```http
-GET http://127.0.0.1:3000/users
-GET http://127.0.0.1:3000/users/:id
-DELETE http://127.0.0.1:3000/users/:id
-
-POST http://127.0.0.1:3000/users
-content-type: application/json
-body: {
-  "username": "test-update4",
-  "password": "test-pw-update4",
-  "email": "update4@example.com"
-}
-
-PUT http://127.0.0.1:3000/users/:id
-content-type: application/json
-body: {
-  "username": "test-update4",
-  "password": "test-pw-update4",
-  "email": "update4@example.com"
-}
-```
-
-### `/entries`
-
-not implemented yet in the example, [THIS IS HOMEWORK](https://github.com/mattpe/hyte-web-dev/blob/main/07-express-mvc-db.md#week-assignment-4---express-mvc-and-database) :)
