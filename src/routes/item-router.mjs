@@ -7,7 +7,6 @@ import {
   putItem,
 } from '../controllers/item-controller.mjs';
 
-
 const itemRouter = express.Router();
 
 // define routes here
