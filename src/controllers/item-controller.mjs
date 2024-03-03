@@ -1,7 +1,7 @@
-import {listAllItems} from '../models/item-models.mjs';
+import items from '../models/item-model.mjs';
 
 const getItems = (req, res) => {
-  res.json(listAllItems);
+  res.json(items);
 };
 
 // palauta vain se objekti, jonka id vastaa pyydettyä, muuten 404
