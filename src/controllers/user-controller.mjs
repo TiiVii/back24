@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import {validationResult} from 'express-validator';
+import { validationResult } from 'express-validator';
 import {
   deleteUserById,
   insertUser,
@@ -8,10 +8,19 @@ import {
   updateUserById,
 } from '../models/user-model.mjs';
 
+// Error handling middleware
+const errorHandler = (err, req, res, next) => {
+  // Handle specific errors or set a default status code
+  const statusCode = err.status || 500;
+  const message = err.message || 'Internal Server Error';
+  console.error(err);
+  res.status(statusCode).json({ error: message });
+};
+
 const getUsers = async (req, res) => {
   const result = await listAllUsers();
   if (result.error) {
-    return res.status(result.error).json(result);
+    throw new Error(result.error);
   }
   return res.json(result);
 };
@@ -19,17 +28,22 @@ const getUsers = async (req, res) => {
 const getUserById = async (req, res) => {
   const result = await selectUserById(req.params.id);
   if (result.error) {
-    return res.status(result.error).json(result);
+    throw new Error(result.error);
   }
   return res.json(result);
 };
 
 const postUser = async (req, res, next) => {
-  const {username, password, email} = req.body;
+  const { username, password, email } = req.body;
   const validationErrors = validationResult(req);
-  console.log('user validation errors', validationErrors);
-  // check that all needed fields are included in request
-  if (validationErrors.isEmpty()) {
+  if (!validationErrors.isEmpty()) {
+    const error = new Error('Validation failed');
+    error.status = 422;
+    error.errors = validationErrors.array();
+    throw error;
+  }
+
+  try {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const result = await insertUser({
@@ -38,45 +52,42 @@ const postUser = async (req, res, next) => {
       password: hashedPassword,
     }, next);
     return res.status(201).json(result);
-  } else {
-    const error = new Error('bad request');
-    error.status = 400;
-    error.errors = validationErrors.errors;
-    return next(error);
+  } catch (error) {
+    next(error);
   }
 };
 
-// Only user authenticated by token can update own data
-const putUser = async (req, res) => {
-  // Get userinfo from req.user object extracted from token
+const putUser = async (req, res, next) => {
   const userId = req.user.user_id;
-  const {username, password, email} = req.body;
-  // hash password if included in request
+  const { username, password, email } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  // check that all needed fields are included in request
+
   if (userId && username && password && email) {
-    const result = await updateUserById({
-      userId,
-      username,
-      password: hashedPassword,
-      email,
-    });
-    if (result.error) {
-      return res.status(result.error).json(result);
+    try {
+      const result = await updateUserById({
+        userId,
+        username,
+        password: hashedPassword,
+        email,
+      });
+      return res.status(200).json(result);
+    } catch (error) {
+      next(error);
     }
-    return res.status(201).json(result);
   } else {
-    return res.status(400).json({error: 400, message: 'bad request'});
+    const error = new Error('Bad request');
+    error.status = 400;
+    throw error;
   }
 };
 
 const deleteUser = async (req, res) => {
   const result = await deleteUserById(req.params.id);
   if (result.error) {
-    return res.status(result.error).json(result);
+    throw new Error(result.error);
   }
   return res.json(result);
 };
 
-export {getUsers, getUserById, postUser, putUser, deleteUser};
+export { getUsers, getUserById, postUser, putUser, deleteUser, errorHandler };
