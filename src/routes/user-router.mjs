@@ -13,8 +13,6 @@ import {validationErrorHandler} from '../middlewares/error-handler.mjs';
 
 const userRouter = express.Router();
 
-// Attach error handling middleware to the router
-userRouter.use(errorHandler);
 
 // /api/user endpoint
 userRouter
@@ -30,8 +28,6 @@ userRouter
    * @apiSuccess {Number} user.user_id Id of the user.
    * @apiSuccess {String} user.username Username
    * @apiSuccess {String} user.user_level Userlevel of the User.
-   *
-   * TODO: add example response
    *
    * @apiUse InvalidTokenError
    */
