@@ -37,10 +37,8 @@ const insertUser = async (user, next) => {
       'INSERT INTO Users (username, password, email) VALUES (?, ?, ?)';
     const params = [user.username, user.password, user.email];
     const [result] = await promisePool.query(sql, params);
-    // console.log(result);
     return {message: 'new user created', user_id: result.insertId};
   } catch (error) {
-    // now duplicate entry error is generic 500 error, should be fixed to 400 ?
     console.error('insertUser', error);
     // Error handler can be used directly from model, if next function is passed
     return next(new Error(error));
@@ -53,11 +51,10 @@ const updateUserById = async (user) => {
       'UPDATE Users SET username=?, password=?, email=? WHERE user_id=?';
     const params = [user.username, user.password, user.email, user.userId];
     await promisePool.query(sql, params);
-    // const [result] = await promisePool.query(sql, params);
-    // console.log(result);
-    return {message: 'user data updated', user_id: user.user_id};
+    const [result] = await promisePool.query(sql, params);
+    console.log(result);
+    return {message: 'user data updated', user_id: user.userId};
   } catch (error) {
-    // fix error handling
     // now duplicate entry error is generic 500 error, should be fixed to 400 ?
     console.error('updateUserById', error);
     return {error: 500, message: 'db error'};
