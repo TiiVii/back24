@@ -14,6 +14,3 @@ const promisePool = pool.promise();
 export default promisePool;
 
 
-//import mysql from 'mysql2/promise';
-
-// Create a pool to manage database connections
