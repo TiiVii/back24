@@ -1,5 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
+import {authenticateToken} from '../middlewares/authentication.mjs';
 import { body } from 'express-validator';
 import {
   getUserById,
@@ -8,17 +9,9 @@ import {
   putUser,
   deleteUser,
 } from '../controllers/user-controller.mjs';
-import { authenticateToken } from '../middlewares/authentication.mjs';
+import { errorHandler, validationErrorHandler } from '../middlewares/error-handler.mjs';
 
 const userRouter = express.Router();
-
-// Error handling middleware
-const errorHandler = (err, req, res, next) => {
-  const statusCode = err.status || 500;
-  const message = err.message || 'Internal Server Error';
-  console.error(err);
-  res.status(statusCode).json({ error: message });
-};
 
 // Attach error handling middleware to the router
 userRouter.use(errorHandler);
@@ -27,18 +20,36 @@ userRouter.use(errorHandler);
 userRouter
   .route('/')
   .get(authenticateToken, getUsers)
-  .put(authenticateToken, putUser)
+  .put(
+    authenticateToken,
+    (req, res, next) => {
+      putUser(req, res, next); // Pass next to putUser
+    }
+  )
   .post(
     body('username').trim().isLength({ min: 3, max: 20 }).isAlphanumeric(),
     body('password').trim().isLength({ min: 8, max: 128 }),
     body('email').trim().isEmail(),
-    postUser
+    validationErrorHandler,
+    (req, res, next) => {
+      postUser(req, res, next); // Pass next to postUser
+    }
   );
 
 // /user/:id endpoint
 userRouter
   .route('/:id')
-  .get(authenticateToken, getUserById)
-  .delete(authenticateToken, deleteUser);
+  .get(
+    authenticateToken,
+    (req, res, next) => {
+      getUserById(req, res, next); // Pass next to getUserById
+    }
+  )
+  .delete(
+    authenticateToken,
+    (req, res, next) => {
+      deleteUser(req, res, next); // Pass next to deleteUser
+    }
+  );
 
 export default userRouter;

@@ -33,12 +33,11 @@ const postEntry = async (req, res) => {
   const {
     user_id: userId,
     entry_date: entryDate,
-    mood,
-    weight,
-    sleep_hours: sleepHours,
+    mood_id: Mood,
+    b_amount: Bamount,
     notes,
   } = req.body;
-  if (entryDate && (weight || mood || sleepHours || notes) && userId) {
+  if (entryDate && (Mood || Bamount || notes) && userId) {
     const result = await addEntry(req.body);
     if (result.entry_id) {
       res.status(201);
@@ -57,14 +56,14 @@ const putEntry = async (req, res) => {
   // Destruct properties from req.body to separate variables,
   // convert property names with underscores to camelCase variable names
   const {
+    user_id: userId,
     entry_date: entryDate,
-    mood,
-    weight,
-    sleep_hours: sleepHours,
+    mood_id: Mood,
+    b_amount: Bamount,
     notes,
   } = req.body;
   // check that all needed fields are included in request
-  if ((entryDate || weight || mood || sleepHours || notes) && entryId) {
+  if (entryDate && (Mood || Bamount || notes) && userId) {
     const result = await updateEntryById({entry_id: entryId, ...req.body});
     if (result.error) {
       return res.status(result.error).json(result);

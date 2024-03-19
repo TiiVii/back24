@@ -67,13 +67,13 @@ const updateEntryById = async (entry) => {
   try {
     const sql =
       `UPDATE DiaryEntries
-       SET entry_date=?, mood=?, weight=?, sleep_hours=?, notes=?
+       SET entry_date=?, mood=?, breakdowns=?, crying=?, notes=?
        WHERE entry_id=?`;
     const params = [
       entry.entry_date,
       entry.mood,
-      entry.weight,
-      entry.sleep_hours,
+      entry.breakdowns,
+      entry.crying,
       entry.notes,
       entry.entry_id,
     ];

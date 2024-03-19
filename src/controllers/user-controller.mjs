@@ -7,15 +7,8 @@ import {
   selectUserById,
   updateUserById,
 } from '../models/user-model.mjs';
+import { errorHandler } from '../middlewares/error-handler.mjs';
 
-// Error handling middleware
-const errorHandler = (err, req, res, next) => {
-  // Handle specific errors or set a default status code
-  const statusCode = err.status || 500;
-  const message = err.message || 'Internal Server Error';
-  console.error(err);
-  res.status(statusCode).json({ error: message });
-};
 
 const getUsers = async (req, res) => {
   const result = await listAllUsers();
@@ -50,7 +43,9 @@ const postUser = async (req, res, next) => {
       username,
       email,
       password: hashedPassword,
-    }, next);
+    }, 
+    next,
+    );
     return res.status(201).json(result);
   } catch (error) {
     next(error);

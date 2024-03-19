@@ -23,10 +23,9 @@ const findItemById = async (id) => {
 };
 
 const addItem = async (entry) => {
-  const {user_id, entry_date, mood, weight, sleep_hours, notes} = item;
-  const sql = `INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes)
-               VALUES (?, ?, ?, ?, ?, ?)`;
-  const params = [user_id, entry_date, mood, weight, sleep_hours, notes];
+  const {user_id, entry_date, mood, breakdowns, crying, notes} = item;
+  const sql = `INSERT INTO DiaryEntries (user_id, entry_date, mood, breakdowns, crying  VALUES (?, ?, ?, ?, ?, ?)`;
+  const params = [user_id, entry_date, mood, breakdowns, crying, notes];
   try {
     const rows = await promisePool.query(sql, params);
     console.log('rows', rows);
@@ -40,12 +39,3 @@ const addItem = async (entry) => {
 export default listAllItems;
 
 
-//// mock data for simple API
-//const items = [
-//  {id: 1, name: 'Item 1'},
-//  {id: 2, name: 'Item 2'},
- // {id: 3, name: 'Item kolme'},
-//  {id: 4, name: 'Item neljä'},
-//];
-
-//export default items;
