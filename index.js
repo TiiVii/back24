@@ -14,16 +14,11 @@ const hostname = '127.0.0.1';
 const port = 3000;
 const app = express();
 
-// middleware, joka lisää CORS-otsakkeen jokaiseen lähtevään vastaukseen.
-// Eli kerrotaan selaimelle, että tämä palvelin sallii AJAX-pyynnöt
-// myös muista kuin samasta alkuperästä (url-osoitteesta, palvelimelta) ladatuilta sivuilta.
 app.use(cors());
 
-// middleware, joka parsii pyynnössä olevan JSON-datan ja lisää sen request-objektiin (req.body)
 app.use(express.json());
 
 // Staattinen sivusto palvelimen juureen (public-kansion sisältö näkyy osoitteessa http://127.0.0.1:3000/sivu.html)
-// Voit sijoittaa esim. valmiin client-sovelluksen tähän kansioon
 app.use(express.static('public'));
 
 // Staattinen sivusto voidaan tarjoilla myös "ali-url-osoitteessa": http://127.0.0.1:3000/sivusto
