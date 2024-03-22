@@ -34,10 +34,11 @@ const postEntry = async (req, res) => {
     user_id: userId,
     entry_date: entryDate,
     mood_id: Mood,
+    c_amount: Camount,
     b_amount: Bamount,
     notes,
   } = req.body;
-  if (entryDate && (Mood || Bamount || notes) && userId) {
+  if (entryDate && (Mood || Camount || Bamount || notes) && userId) {
     const result = await addEntry(req.body);
     if (result.entry_id) {
       res.status(201);
@@ -59,11 +60,12 @@ const putEntry = async (req, res) => {
     user_id: userId,
     entry_date: entryDate,
     mood_id: Mood,
+    c_amount: Camount,
     b_amount: Bamount,
     notes,
   } = req.body;
   // check that all needed fields are included in request
-  if (entryDate && (Mood || Bamount || notes) && userId) {
+  if (entryDate && (Mood || Camount || Bamount || notes) && userId) {
     const result = await updateEntryById({entry_id: entryId, ...req.body});
     if (result.error) {
       return res.status(result.error).json(result);

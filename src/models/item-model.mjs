@@ -2,7 +2,7 @@ import promisePool from '../utils/database.mjs';
 
 const listAllItems = async () => {
   try {
-    const [rows] = await promisePool.query('SELECT * FROM DiaryEntries');
+    const [rows] = await promisePool.query('SELECT * FROM FeelingEntries');
     console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -13,7 +13,7 @@ const listAllItems = async () => {
 
 const findItemById = async (id) => {
   try {
-    const [rows] = await promisePool.query('SELECT * FROM DiaryEntries WHERE entry_id = ?', [id]);
+    const [rows] = await promisePool.query('SELECT * FROM FeelingEntries WHERE entry_id = ?', [id]);
     console.log('rows', rows);
     return rows[0];
   } catch (e) {
@@ -23,9 +23,9 @@ const findItemById = async (id) => {
 };
 
 const addItem = async (entry) => {
-  const {user_id, entry_date, mood, breakdowns, crying, notes} = item;
-  const sql = `INSERT INTO DiaryEntries (user_id, entry_date, mood, breakdowns, crying  VALUES (?, ?, ?, ?, ?, ?)`;
-  const params = [user_id, entry_date, mood, breakdowns, crying, notes];
+  const {user_id, entry_date, mood, crying, breakdowns, notes} = item;
+  const sql = `INSERT INTO FeelingEntries (user_id, entry_date, mood, crying, breakdowns  VALUES (?, ?, ?, ?, ?, ?)`;
+  const params = [user_id, entry_date, mood, crying, breakdowns, notes];
   try {
     const rows = await promisePool.query(sql, params);
     console.log('rows', rows);

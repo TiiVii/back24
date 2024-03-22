@@ -13,41 +13,18 @@ CREATE TABLE Users (
     user_level VARCHAR(10) DEFAULT 'regular'
 );
 
-CREATE TABLE Mood (
-    mood_id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE FeelingEntries (
+    entry_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     entry_date DATE NOT NULL,
     mood VARCHAR(50),
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-
-CREATE TABLE Crying (
-    crying_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
     c_amount INT,
-    start_date DATE,
-    end_date DATE,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-
-CREATE TABLE Breakdowns (
-    breakdowns_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    type VARCHAR(100) NOT NULL,
     b_amount INT NOT NULL,
-    date DATE,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-
-CREATE TABLE Info (
-    mood_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    entry_date DATE NOT NULL,
     info TEXT,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
+
 
 -- Insert sample data
 
