@@ -7,9 +7,8 @@ import { validationResult } from "express-validator";
 * @param {function} next - next function
 */
 const notFoundHandler = (req, res, next) => {
-    const error = new Error(`Not Found - ${req.originalUrl}`);
-    error.status = 404;
-    next(error); // forward error to error handler
+  const error = customError(`Not Found - ${req.originalUrl}`, 404);
+  next(error); // forward error to error handler
   };
 
   const customError = (message, status, errors) => {
