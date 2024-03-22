@@ -1,3 +1,5 @@
+import { validationResult } from "express-validator";
+
 /**
 * Generic 404 handler
 * @param {object} req - request object
@@ -8,6 +10,15 @@ const notFoundHandler = (req, res, next) => {
     const error = new Error(`Not Found - ${req.originalUrl}`);
     error.status = 404;
     next(error); // forward error to error handler
+  };
+
+  const customError = (message, status, errors) => {
+    const error = new Error(message);
+    error.status = status || 500;
+    if (errors) {
+      error.errors = errors;
+    }
+    return error;
   };
   
   /**
