@@ -44,7 +44,6 @@ const deleteItem = (req, res) => {
 };
 
 const putItem = (req, res) => {
-  // TODO: implement modify item
   const index = items.findIndex((item) => item.id == req.params.id);
   // not found
   if (index === -1) {
