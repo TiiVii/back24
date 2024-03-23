@@ -18,25 +18,24 @@ CREATE TABLE FeelingEntries (
     user_id INT NOT NULL,
     entry_date DATE NOT NULL,
     mood VARCHAR(50),
-    c_amount INT,
-    b_amount INT NOT NULL,
-    info TEXT,
+    crying INT,
+    breakdowns INT,
+    notes TEXT,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 
 -- Insert sample data
 
-INSERT INTO Users (username, password, email, created_at, user_level) VALUES
-('johndoe', 'hashed_password', 'johndoe@example.com', '2024-01-01 09:00:00', 'regular'),
-('janedoe', 'hashed_password', 'janedoe@example.com', '2024-01-02 10:00:00', 'admin'),
-('alice_jones', 'hashed_password', 'alice@example.com', '2024-01-04 08:30:00', 'regular'),
-('bob_brown', 'hashed_password', 'bob@example.com', '2024-01-05 07:45:00', 'regular');
+INSERT INTO Users (username, password, email, user_level) VALUES
+('johndoe', 'hashed_password', 'johndoe@example.com', 'regular'),
+('janedoe', 'hashed_password', 'janedoe@example.com', 'admin'),
+('alice_jones', 'hashed_password', 'alice@example.com', 'regular'),
+('bob_brown', 'hashed_password', 'bob@example.com', 'regular');
 
-INSERT INTO FeelingEntries (entry_id, user_id, entry_date, mood, c_amount, b_amount, info) VALUES
-(1, 1, '2024-01-10', 'Happy', '1', '1', 'Had a pretty good day'),
-(2, '2024-01-11', 'Content', '2', '5', 'Met with friends, had a good time'),
-(3, '2024-01-12', 'Tired', '1', '0', 'Work was demanding'),
-(4, '2024-01-13', 'Energetic', '2', '3', 'Dad came back'),
-(4, '2024-01-14', 'Relaxed', '90', '5', 'The dark forces are becoming stronger');
+INSERT INTO FeelingEntries (user_id, entry_date, mood, crying, breakdowns, notes) VALUES
+(1, '2024-01-10', 'Happy', '11', '11', 'Had a pretty good day'),
+(2,'2024-01-11', 'Content', '21', '51', 'Met with friends, had a good time'),
+(3, '2024-01-12', 'Tired', '11', '10', 'Work was demanding'),
+(4,'2024-01-13', 'Energetic', '12', '13', 'Dad came back')
 
