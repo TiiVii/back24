@@ -72,7 +72,7 @@ const updateEntryById = async (entryId, userId, entryData) => {
   }
 };
 
-const deleteEntryById = async (id) => {
+const deleteEntryById = async (id, userId) => {
   try {
     const sql = 'DELETE FROM FeelingEntries WHERE entry_id=? AND user_id=?';
     const params = [id, userId];
