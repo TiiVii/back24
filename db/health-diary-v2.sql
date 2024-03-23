@@ -28,10 +28,10 @@ CREATE TABLE FeelingEntries (
 -- Insert sample data
 
 INSERT INTO Users (username, password, email, user_level) VALUES
-('johndoe', 'hashed_password', 'johndoe@example.com', 'regular'),
-('janedoe', 'hashed_password', 'janedoe@example.com', 'admin'),
-('alice_jones', 'hashed_password', 'alice@example.com', 'regular'),
-('bob_brown', 'hashed_password', 'bob@example.com', 'regular');
+('johndoe', 'hashedpassword', 'johndoe@example.com', 'regular'),
+('janedoe', 'hashedpassword', 'janedoe@example.com', 'admin'),
+('alice_jones', 'hashedpassword', 'alice@example.com', 'regular'),
+('bob_brown', 'hashedpassword', 'bob@example.com', 'regular');
 
 INSERT INTO FeelingEntries (user_id, entry_date, mood, crying, breakdowns, notes) VALUES
 (1, '2024-01-10', 'Happy', '11', '11', 'Had a pretty good day'),
