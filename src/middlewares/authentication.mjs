@@ -5,7 +5,6 @@ import {customError} from './error-handler.mjs';
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
-  // console.log('token', token);
   if (!token) {
     return next(customError('Token missing', 401));
   }
