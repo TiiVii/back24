@@ -1,4 +1,5 @@
 **Short synopsis of the webpage (1-6).**
+
   1.The landing page has a small logo and two boxes (below). One for registering a new user and one for signing in.
   ![Screenshot 2024-03-24 014530](https://github.com/TiiVii/vite/assets/111729213/7d4ea401-2c8c-444f-af68-746f3b250655)
   
