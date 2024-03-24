@@ -21,7 +21,9 @@
   ![Screenshot 2024-03-24 020221](https://github.com/TiiVii/vite/assets/111729213/833d1285-152c-440d-8060-91f970aa405e)
 
 **Database.**
-  As seen from the below picture, the database HealthDiary has two tables: feelingEntries and users. user_id was a primary key for "users" table and entry_id was the primary key in "feelingEntries". 
+
+  As seen from the below picture, the database HealthDiary has two tables: feelingEntries and users. 
+  user_id was a primary key for "users" table and entry_id was the primary key in "feelingEntries". 
   In "users" table email and username had to be unique for a successful registering. user_id was the foreing key.
   ![Screenshot 2024-03-24 023705](https://github.com/TiiVii/vite/assets/111729213/4ecf5da1-ca1e-42ea-8dbf-494d775bdc23)
 
