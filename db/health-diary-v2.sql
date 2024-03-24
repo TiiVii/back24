@@ -25,8 +25,6 @@ CREATE TABLE FeelingEntries (
 );
 
 
--- Insert sample data
-
 INSERT INTO Users (username, password, email, user_level) VALUES
 ('johndoe', 'hashedpassword', 'johndoe@example.com', 'regular'),
 ('janedoe', 'hashedpassword', 'janedoe@example.com', 'admin'),
@@ -39,3 +37,4 @@ INSERT INTO FeelingEntries (user_id, entry_date, mood, crying, breakdowns, notes
 (3, '2024-01-12', 'Tired', '11', '10', 'Work was demanding'),
 (4,'2024-01-13', 'Energetic', '12', '13', 'Dad came back')
 
+-- Insert sample data
