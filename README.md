@@ -31,6 +31,7 @@
   - The background for the website was taken from here: 
     https://www.publicdomainpictures.net/en/view-image.php?image=465082&picture=stripe-pattern-retro-background
   - The logo on the landing page was taken from asking Bings Copilot to "create a colorful retro logo".
+  - Got help from my group member related to the visual side of the webpage.
 
 **Used functions.**
   - popups and spans to close them
@@ -40,11 +41,9 @@
   - FE: float, hover, active, hamburger-menu, background fixed
 
 **Possible bugs or issues.**
-  - It is not specified about what kind of error occurs when registering or login fails to the user.
+  - The website was not useable through server, even though the page was visible.
 
-**CHECK**
-linkki julkaistuun sovellukseen (front-end)
-linkki käytössä olevaan back-end-sovellukseen/APIin
-linkki API-dokumentaatioon (apidoc)
-listaus ja kuvaus kaikista toiminnallisuuksista, mitä olet toteuttanut
-mahdolliset tiedossa olevat bugit/ongelmat
+**Other**
+Link to apidoc: https://github.com/TiiVii/back24/blob/projektiyritys/apidoc.json
+Link to backend where ther server was tried to run and where the wanted ReadMe is: https://github.com/TiiVii/back24/tree/projektiyritys
+
